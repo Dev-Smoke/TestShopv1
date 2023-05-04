@@ -1,0 +1,99 @@
+﻿@model TestShopv1.Models.ViewModel.CustomerVM
+
+<div class="card shadow border-0 mt-4">
+    <div class="card-header bg-secondary bg-gradient ml-0 py-4">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="py-2 text-white">Register</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <div class="row pt-3">
+            <div class="col-md-12">
+                <form class="row" method="post">
+                    <h3 class="border-bottom pb-3 mb-4 text-secondary text-center">Create a new account.</h3>
+                    <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                    <br />
+                    <br />
+                    <div class="form-floating mb-3 col-md-12">
+                        <input asp-for="EmailAddress" class="form-control" autocomplete="on" aria-required="true" placeholder="name@example.com" />
+                        @*<label asp-for="EmailAddress" class="ms-2 text-muted" />*@
+                        <span asp-validation-for="EmailAddress" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3 col-md-12">
+                        <input asp-for="Password" class="form-control" placeholder="Passwort" />
+                        @*<label asp-for="Password" class="ms-2 text-muted" />*@
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3 col-md-12">
+                        <input asp-for="PasswordAgain" class="form-control" placeholder="Passwort nochmal" />
+                        @*<label asp-for="PasswordAgain" class="ms-2 text-muted" />*@
+                        <span asp-validation-for="PasswordAgain" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3 col-md-6">
+                        <input asp-for="Salutation" class="form-control" placeholder="Anrede" />
+                        @*<label asp-for="Salutation" class="ms-2 text-muted">Anrede</label>*@
+                        <span asp-validation-for="Salutation" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3 col-md-6">
+                        <input asp-for="Firstname" class="form-control" placeholder="Vorname" />
+                        @*<label asp-for="Firstname" class="ms-2 text-muted">Vorname</label>*@
+                        <span asp-validation-for="Firstname" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3 col-md-6">
+                        <input asp-for="Lastname" class="form-control" placeholder="Nachname" />
+                        @*<label asp-for="Lastname" class="ms-2 text-muted">Nachname</label>*@
+                        <span asp-validation-for="Lastname" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3 col-md-6">
+                        <input asp-for="Street" class="form-control" placeholder="Straße" />
+                        @*<label asp-for="Street" class="ms-2 text-muted">Straße</label>*@
+                        <span asp-validation-for="Street" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3 col-md-6">
+                        <input asp-for="ZipCode" class="form-control" placeholder="Postleitzahl" />
+                        @*<label asp-for="ZipCode" class="ms-2 text-muted">Postleitzahl</label>*@
+                        <span asp-validation-for="ZipCode" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3 col-md-6">
+                        <input asp-for="City" class="form-control" placeholder="Stadt" />
+                        @*<label asp-for="City" class="ms-2 text-muted">Stadt</label>*@
+                        <span asp-validation-for="City" class="text-danger"></span>
+                    </div>
+                    <div class="form-check mb-3">
+                        <input type="checkbox" id="checkbox" class="form-check-input" />
+                        <label class="form-check-label">
+                            I agree to the <a href="https://www.ages.at/agb">terms and conditions</a>.
+                        </label>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" id="submitButton" disabled value="Register" class="w-100 btn btn-lg btn-primary">Register</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+            const checkbox = document.getElementById('checkbox');
+            const submitButton = document.getElementById('submitButton');
+
+            checkbox.addEventListener('change', function () {
+                if (this.checked) {
+                submitButton.disabled = false;
+                } else {
+                submitButton.disabled = true;
+                }
+            });
+    </script>
+}
