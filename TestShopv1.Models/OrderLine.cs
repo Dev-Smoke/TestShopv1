@@ -18,7 +18,7 @@ namespace TestShopv1.Models
         public int Quantity { get; set; }
         [Column(TypeName = "money")]
         public decimal? TotalPriceBrutto { get; set; }
-        [Column(TypeName = "numeric(5, 2)")]
+        [Column(TypeName = "decimal(5, 2)")]
         public decimal? TaxRate { get; set; }
 
         [ForeignKey(nameof(OrderId))]

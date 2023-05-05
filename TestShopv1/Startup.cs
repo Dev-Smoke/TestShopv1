@@ -12,6 +12,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TestShopv1.Models;
 using System.Globalization;
+using System.Threading;
 
 namespace TestShopv1
 {
@@ -33,21 +34,6 @@ namespace TestShopv1
 
             services.AddRazorPages().AddRazorRuntimeCompilation();
 
-            services.AddLocalization(options => options.ResourcesPath = "Resources");
-
-            services.Configure<RequestLocalizationOptions>(options =>
-            {
-                var supportedCultures = new List<CultureInfo>
-                {
-                     new CultureInfo("en-US"),
-                     new CultureInfo("de-DE")
-                };
-
-                options.DefaultRequestCulture = new RequestCulture("en-US", "de-DE");
-                options.SupportedCultures = supportedCultures;
-                options.SupportedUICultures = supportedCultures;
-            });
-
             //Für eigene Cookie-Auth
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
@@ -61,10 +47,14 @@ namespace TestShopv1
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            var cultureInfo = new CultureInfo("de-AT");
-            cultureInfo.NumberFormat.CurrencySymbol = "€";
-            CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
-            CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+            app.Use(async (context, next) =>
+            {
+                var currentThreadCulture = (CultureInfo)Thread.CurrentThread.CurrentCulture.Clone();
+                currentThreadCulture.NumberFormat = NumberFormatInfo.InvariantInfo;
+                Thread.CurrentThread.CurrentCulture = currentThreadCulture;
+                Thread.CurrentThread.CurrentUICulture = currentThreadCulture;
+                await next();
+            });
 
             if (env.IsDevelopment())
             {

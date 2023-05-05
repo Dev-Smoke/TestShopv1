@@ -38,7 +38,7 @@ CREATE TABLE Manufacturer (
 CREATE TABLE Category (
 	Id int primary key not null identity(1,1),
 	[Name] nvarChar(25) not null,
-	TaxRate decimal 
+	TaxRate decimal (5,2)
 );
 
 CREATE TABLE Product (
@@ -62,7 +62,7 @@ CREATE TABLE OrderLine (
 	ProductId int REFERENCES Product (Id) not null,    
     Quantity int not null,
 	TotalPriceBrutto money,
-	TaxRate decimal 
+	TaxRate decimal (5,2)
 );
 
 ALTER TABLE OrderLine

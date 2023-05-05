@@ -19,3 +19,4 @@ namespace TestShopv1.Models
 
     }
 }
+//[MetadataType(typeof(CustomerMetadata))]

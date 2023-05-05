@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TestShopv1.Models
 {
+    [MetadataType(typeof(Category))]
     [Table("Category")]
     public partial class Category
     {
@@ -21,7 +22,7 @@ namespace TestShopv1.Models
         [Required]
         [StringLength(25)]
         public string Name { get; set; }
-        [Column(TypeName = "numeric(5, 2)")]
+        [Column(TypeName = "decimal(5, 2)")]
         public decimal? TaxRate { get; set; }
 
         [InverseProperty(nameof(Product.Category))]

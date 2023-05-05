@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using TestShopv1.Models;
 
 namespace TestShopv1.Controllers
@@ -69,9 +67,41 @@ namespace TestShopv1.Controllers
             {
                 _db.Categories.Update(obj);
                 _db.SaveChanges();
+                TempData["success"] = "Category updated successfully";
                 return RedirectToAction(nameof(Index));
             }
             return View(obj);
         }
+
+        [HttpGet]
+        public IActionResult Delete(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            var getcategoryfromdb = _db.Categories.FirstOrDefault(z => z.Id == id);
+
+            if (getcategoryfromdb == null)
+            {
+                return NotFound();
+            }
+            return View(getcategoryfromdb);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeletePost(int? id)
+        {
+            var obj = _db.Categories.Find(id);
+            if (obj == null)
+                return NotFound();
+
+            _db.Categories.Remove(obj);
+            _db.SaveChanges();
+            TempData["success"] = "Category delete successfully";
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }
