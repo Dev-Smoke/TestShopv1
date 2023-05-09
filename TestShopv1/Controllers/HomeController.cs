@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -12,16 +13,21 @@ namespace TestShopv1.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly MyContext _db;
+
         public static string Name { get { return nameof(HomeController).Replace("Controller", ""); } }
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, MyContext myContext)
         {
             _logger = logger;
+            _db = myContext;
+
         }
 
         public IActionResult Index()
         {
-            return View();
+            var obj = _db.Products.Include(u => u.Category).Include(u => u.Manufacturer).ToList();
+            return View(obj);           
         }
 
         public IActionResult Privacy()

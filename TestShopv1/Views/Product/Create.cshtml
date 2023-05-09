@@ -10,36 +10,42 @@
         </div>
     </div>
     <div class="card-body p-4">
-        <form method="post" class="row">
+        <form method="post" class="row" enctype="multipart/form-data">
+            <input asp-for="Product.Id" type="hidden"  />
+            <input asp-for="Product.ImagePath" hidden />
             <div class=" p-3">
                 <div class="form-floating py-2 col-12">
                     <input asp-for="Product.Name" class="form-control border-0 shadow" />
-                    <label asp-for="Product.Name" class="ms-2"></label>
+                    <label asp-for="Product.Name" class="ms-2 text-muted"></label>
                     <span asp-validation-for="Product.Name" class="text-danger"></span>
                 </div>
                 <div class="form-floating py-2 col-12">
+                    <label asp-for="Product.Description" class="ms-2 text-muted">Beschreibung</label>
                     <textarea asp-for="Product.Description" class="form-control border-0 shadow"> </textarea>
-                    <label asp-for="Product.Description" class="ms-2"></label>
                     <span asp-validation-for="Product.Description" class="text-danger"></span>
                 </div>
                 <div class="form-floating py-2 col-12">
                     <input asp-for="Product.UnitPriceNetto" class="form-control border-0 shadow" type="number" step="0.01" />
-                    <label asp-for="Product.UnitPriceNetto" class="ms-2"></label>
+                    <label asp-for="Product.UnitPriceNetto" class="ms-2">Netto Preis</label>
                     <span asp-validation-for="Product.UnitPriceNetto" class="text-danger"></span>
                 </div>
                 <div class="form-floating py-2 col-12">
                     <select asp-for="@Model.Product.CategoryId" asp-items="@Model.CategoryList" class="form-select border-0 shadow">
                         <option disabled selected>--Wähle eine Kategorie--</option>
                     </select>
-                    <label asp-for="Product.CategoryId" class="ms-2"></label>
+                    <label asp-for="Product.CategoryId" class="ms-2">Kategorie</label>
                     <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
                 </div>
                 <div class="form-floating py-2 col-12">
                     <select asp-for="@Model.Product.ManufacturerId" asp-items="@Model.ManufacturList" class="form-select border-0 shadow">
                         <option disabled selected>--Wähle einen Hersteller--</option>
                     </select>
-                    <label asp-for="Product.CategoryId" class="ms-2"></label>
+                    <label asp-for="Product.CategoryId" class="ms-2">Hersteller</label>
                     <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input type="file" name="file" class="form-control border-0 shadow" multiple />
+                    <label asp-for="Product.ImagePath" class="ms-2"></label>
                 </div>
                 <div class="row pt-2">
                     <div class="col-6 col-md-3">
@@ -52,13 +58,21 @@
                     </div>
                 </div>
 
-
+                
             </div>
         </form>
     </div>
 </div>
 
 @section Scripts{ 
+    <script>
+    tinymce.init({
+      selector: 'textarea',
+      plugins: 'anchor autolink charmap codesample emoticons link table wordcount casechange export linkchecker tinymcespellchecker permanentpen powerpaste advtable advcode  tableofcontents footnotes autocorrect inlinecss',
+      toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat'
+    });
+    </script>
+
     @{ 
         <partial name="_ValidationScriptsPartial" />
     }

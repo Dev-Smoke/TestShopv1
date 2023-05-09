@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    <link rel="stylesheet" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
 </head>
 <body>
     <header>
@@ -21,36 +22,39 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between" >
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1  d-flex">
                         <li class="nav-item">
                             <a class="nav-link active" asp-area="" asp-controller="Category" asp-action="Index">Kategorien</a>
                         </li>
-                        <ul class="navbar-nav flex-grow-1  d-flex">
-                            <li class="nav-item">
-                                <a class="nav-link active" asp-area="" asp-controller="Product" asp-action="Index">Produkte</a>
-                            </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" asp-area="" asp-controller="Product" asp-action="Index">Produkte</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" asp-area="" asp-controller="Product" asp-action="GetAll">Json</a>
+                        </li>
                         <!-- #region Account -->
-                        @*@if (!User.Identity.IsAuthenticated)
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-info" asp-area="" asp-controller="Account" asp-action="Register">Registrieren</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-info" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
-                                </li>
-                            }
-                            else
-                            {
-                                <ul class="navbar-nav flex-grow-1 justify-content-end d-flex">
-                                    <li class="nav-item">
-                                        <a class="nav-link text-danger" asp-area="" asp-controller="Home" asp-action="Index">@User.GetName()</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-danger" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
-                                    </li>
-                                </ul>
-                            }*@
+                        @*<ul class="navbar-nav flex-grow-1  d-flex">
+                            @if (!User.Identity.IsAuthenticated)
+                                 {
+                                     <li class="nav-item">
+                                         <a class="nav-link text-info" asp-area="" asp-controller="Account" asp-action="Register">Registrieren</a>
+                                     </li>
+                                     <li class="nav-item">
+                                         <a class="nav-link text-info" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                                     </li>
+                                 }
+                                 else
+                                 {
+                                     <ul class="navbar-nav flex-grow-1 justify-content-end d-flex">
+                                         <li class="nav-item">
+                                             <a class="nav-link text-danger" asp-area="" asp-controller="Home" asp-action="Index">@User.GetName()</a>
+                                         </li>
+                                         <li class="nav-item">
+                                             <a class="nav-link text-danger" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
+                                         </li>
+                                     </ul>
+                                 }*@
 
                         <!-- #endregion -->
                     </ul>
@@ -60,7 +64,7 @@
     </header>
     <div class="container" style="min-height: 87.8vh;">
         <main role="main" class="pb-3">
-           <partial name="_Notification" />
+            <partial name="_Notification" />
             @RenderBody()
         </main>
     </div>
@@ -77,6 +81,10 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js" asp-append-version="true"></script>
+    <script src="https://cdn.tiny.cloud/1/jgio009k05lmbp6zj4pmhtvzgklkeulfvobdtbs3ot52o5tc/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+

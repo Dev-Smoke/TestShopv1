@@ -9,46 +9,61 @@
         </div>
     </div>
     <div class="card-body p-4">
-        <form method="post" class="row" asp-action="Edit">
-            <div class=" p-3">
-                <div class="form-floating py-2 col-12">
-                    <input asp-for="Product.Name" class="form-control border-0 shadow" />
-                    <label asp-for="Product.Name" class="ms-2"></label>
-                    <span asp-validation-for="Product.Name" class="text-danger"></span>
-                </div>
-                <div class="form-floating py-2 col-12">
-                    <textarea asp-for="Product.Description" class="form-control border-0 shadow"> </textarea>
-                    <label asp-for="Product.Description" class="ms-2">Beschreibung</label>
-                    <span asp-validation-for="Product.Description" class="text-danger"></span>
-                </div>
-                <div class="form-floating py-2 col-12">
-                    <input asp-for="Product.UnitPriceNetto" class="form-control border-0 shadow" />
-                    <label asp-for="Product.UnitPriceNetto" class="ms-2">Netto Preis</label>
-                    <span asp-validation-for="Product.UnitPriceNetto" class="text-danger"></span>
-                </div>
-                <div class="form-floating py-2 col-12">
-                    <select asp-for="@Model.Product.CategoryId" asp-items="@Model.CategoryList" class="form-select border-0 shadow">
-                        <option disabled selected>--Wähle eine Kategorie--</option>
-                    </select>
-                    <label asp-for="Product.Category"  class="ms-2">Kategory</label>
-                    <span asp-validation-for="Product.Category" class="text-danger"></span>
-                </div>
-                <div class="form-floating py-2 col-12">
-                    <select asp-for="@Model.Product.ManufacturerId" asp-items="@Model.ManufacturList" class="form-select border-0 shadow">
-                        <option disabled selected>--Wähle einen Hersteller--</option>
-                    </select>
-                    <label asp-for="Product.Manufacturer" class="ms-2">Hersteller</label>
-                    <span asp-validation-for="Product.Manufacturer" class="text-danger"></span>
-                </div>
-                <div class="row pt-2">
-                    <div class="col-6 col-md-3">
-                        <button type="submit" class="btn btn-primary form-control">Ändern</button>
+        <form method="post" class="row" asp-action="Edit" enctype="multipart/form-data">
+            <input asp-for="Product.Id" hidden />
+            <input asp-for="Product.ImagePath" hidden />
+            <div class="row">
+                <div class="col-10">
+                    <div class=" p-3">
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="Product.Name" class="form-control border-0 shadow" />
+                            <label asp-for="Product.Name" class="ms-2"></label>
+                            <span asp-validation-for="Product.Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-2 col-12">
+                            <textarea asp-for="Product.Description" class="form-control border-0 shadow"> </textarea>
+                            <label asp-for="Product.Description" class="ms-2">Beschreibung</label>
+                            <span asp-validation-for="Product.Description" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-2 col-12">
+                            <input asp-for="Product.UnitPriceNetto" class="form-control border-0 shadow" />
+                            <label asp-for="Product.UnitPriceNetto" class="ms-2">Netto Preis</label>
+                            <span asp-validation-for="Product.UnitPriceNetto" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-2 col-12">
+                            <select asp-for="@Model.Product.CategoryId" asp-items="@Model.CategoryList" class="form-select border-0 shadow">
+                                <option disabled selected>--Wähle eine Kategorie--</option>
+                            </select>
+                            <label asp-for="Product.Category" class="ms-2">Kategory</label>
+                            <span asp-validation-for="Product.Category" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-2 col-12">
+                            <select asp-for="@Model.Product.ManufacturerId" asp-items="@Model.ManufacturList" class="form-select border-0 shadow">
+                                <option disabled selected>--Wähle einen Hersteller--</option>
+                            </select>
+                            <label asp-for="Product.Manufacturer" class="ms-2">Hersteller</label>
+                            <span asp-validation-for="Product.Manufacturer" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-2 col-12">
+                            <input type="file" name="file" class="form-control border-0 shadow" multiple />
+                            <label asp-for="Product.ImagePath" class="ms-2"></label>
+                        </div>
+                        <div class="row pt-2">
+                            <div class="col-6 col-md-3">
+                                <button type="submit" class="btn btn-primary form-control">Ändern</button>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <a asp-controller="Product" asp-action="Index" class="btn btn-primary   form-control">
+                                    zur Übersicht
+                                </a>
+                            </div>
+                        </div>
+
                     </div>
-                    <div class="col-6 col-md-3">
-                        <a asp-controller="Product" asp-action="Index" class="btn btn-primary   form-control">
-                            zur Übersicht
-                        </a>
-                    </div>
+                </div>
+                <div class="col-2">
+                    <img src="@Model.Product.ImagePath" width="100%"
+                         style="border-radius:5px; border:1px solid #d0cbcb" />
                 </div>
             </div>
         </form>
@@ -56,6 +71,13 @@
 </div>
 
 @section Scripts{
+    <script>
+    tinymce.init({
+      selector: 'textarea',
+      plugins: 'anchor autolink charmap codesample emoticons link table wordcount casechange export linkchecker tinymcespellchecker permanentpen powerpaste advtable advcode  tableofcontents footnotes autocorrect inlinecss',
+      toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat'
+    });
+    </script>
     @{
         <partial name="_ValidationScriptsPartial" />
     }

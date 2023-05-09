@@ -4,7 +4,7 @@
     <div class="card-header bg-secondary bg-gradient ml-0 py-3">
         <div class="row">
             <div class="col-12 text-center">
-                <h2 class="text-white py-2">Kategorie Löschen</h2>
+                <h2 class="text-white py-2">Produkt Löschen</h2>
             </div>
         </div>
     </div>
@@ -14,12 +14,16 @@
             <div class=" p-3">
                 <div class="form-floating py-2 col-12">
                     <input asp-for="Name" disabled class="form-control border-0 shadow" />
-                    <label asp-for="Name"  class="ms-2"></label>
+                    <label asp-for="Name" class="ms-2" style="color:lightgray">Name</label>
                 </div>
                 <div class="form-floating py-2 col-12">
-                    <input asp-for="Description" disabled class="form-control border-0 shadow" type="number" step="0.01" />
-                    <label asp-for="Description" class="ms-2"></label>
+                    <input asp-for="Description" disabled class="form-control border-0 shadow"  />
+                    <label asp-for="Description" class="ms-2"  style="color:white">Beschreibung</label>
                 </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="UnitPriceNetto" disabled class="form-control border-0 shadow" />
+                    <label asp-for="UnitPriceNetto" class="ms-2"  style="color:whitesmoke">Netto Preis</label>
+                </div>                
                 <div class="row pt-2">
                     <div class="col-6 col-md-3">
                         <button type="submit" class="btn btn-danger form-control">Löschen</button>
