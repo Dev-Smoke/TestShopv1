@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TestShopv1.Models
 {
-    [MetadataType(typeof(Category))]
+    [MetadataType(typeof(_Category))]
     [Table("Category")]
     public partial class Category
     {

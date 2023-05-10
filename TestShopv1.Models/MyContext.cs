@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -6,7 +8,8 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace TestShopv1.Models
 {
-    public partial class MyContext : DbContext
+    [MetadataType(typeof(_MyContext))]
+    public partial class MyContext : IdentityDbContext
     {
         public MyContext()
         {
@@ -75,8 +78,8 @@ namespace TestShopv1.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Product__Manufac__412EB0B6");
             });
-
             OnModelCreatingPartial(modelBuilder);
+
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

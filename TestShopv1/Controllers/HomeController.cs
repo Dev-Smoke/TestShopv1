@@ -30,6 +30,11 @@ namespace TestShopv1.Controllers
             return View(obj);           
         }
 
+        public IActionResult Details(int productId)
+        {
+            Product product = _db.Products.Include(u => u.Category).Include(u => u.Manufacturer).FirstOrDefault(p => p.Id == productId);
+            return View(product);
+        }
         public IActionResult Privacy()
         {
             return View();
