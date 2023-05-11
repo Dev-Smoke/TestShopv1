@@ -1,6 +1,16 @@
 ﻿@model IEnumerable<Product>
 
+
+
 <div class="row pb-3">
+    <form asp-controller="Home" asp-action="Index" method="get">
+        <p>
+            <input type="text" name="search" />
+            <button type="submit" value="Filter" class="btn btn-secondary">Suchen!</button>
+        </p>
+        <button type="submit" value="Filter" class="btn btn-secondary">Suchen!</button>
+
+    </form>
     @foreach (var product in Model)
     {
         <div class="col-lg-3 col-sm-6">
@@ -9,7 +19,7 @@
                     <div class="card border-0 p-3 shadow  border-top border-5 rounded">
                         @if (product.ImagePath != null && product.ImagePath.Count() > 0)
                         {
-                            <img src="@product.ImagePath" class="card-img-top  rounded" width="500" height="400"/>
+                            <img src="@product.ImagePath" class="card-img-top  rounded" width="500" height="400" />
                         }
                         else
                         {
@@ -28,7 +38,7 @@
                                         @product.UnitPriceNetto.ToString("C", CultureInfo.CreateSpecificCulture("de-DE"))
                                     </span>
                                 </p>
-                            </div>               
+                            </div>
                         </div>
                         <div>
                             <a asp-action="Details"

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -8,8 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace TestShopv1.Models
 {
-    [MetadataType(typeof(_MyContext))]
-    public partial class MyContext : IdentityDbContext
+    public partial class MyContext : DbContext
     {
         public MyContext()
         {
@@ -32,7 +29,7 @@ namespace TestShopv1.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=DESKTOP-CRRPTTU;Database=TestShopv1;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Data Source=PCF48AE9229AF2;Initial Catalog=TestShopv1;Persist Security Info=True;User ID=sa;Password=Admin2019$");
             }
         }
 
@@ -78,8 +75,8 @@ namespace TestShopv1.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Product__Manufac__412EB0B6");
             });
-            OnModelCreatingPartial(modelBuilder);
 
+            OnModelCreatingPartial(modelBuilder);
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

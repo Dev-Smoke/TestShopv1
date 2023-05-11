@@ -24,9 +24,15 @@ namespace TestShopv1.Controllers
 
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string? search)
         {
             var obj = _db.Products.Include(u => u.Category).Include(u => u.Manufacturer).ToList();
+            if (!string.IsNullOrEmpty(search))
+            {
+                obj = obj.Where(s => s.Name.ToLowerInvariant().Contains(search.ToLowerInvariant()) ||
+                s.Manufacturer.Name.ToLowerInvariant().Contains(search.ToLowerInvariant()) ||
+                s.Description.ToLowerInvariant().Contains(search.ToLowerInvariant())).ToList();
+            }
             return View(obj);           
         }
 
