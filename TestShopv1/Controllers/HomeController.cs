@@ -24,7 +24,9 @@ namespace TestShopv1.Controllers
 
         }
 
-        public IActionResult Index(string? search)
+        public IActionResult Index(string? search, string? tablet, string? smartphones,
+            string? laptop, string? peripheri, string? microsoft, string? samsung,
+            string? apple, string? dell, string? lenovo )
         {
             var obj = _db.Products.Include(u => u.Category).Include(u => u.Manufacturer).ToList();
             if (!string.IsNullOrEmpty(search))

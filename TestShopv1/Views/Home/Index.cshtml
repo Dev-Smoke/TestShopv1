@@ -6,9 +6,17 @@
     <form asp-controller="Home" asp-action="Index" method="get">
         <p>
             <input type="text" name="search" />
-            <button type="submit" value="Filter" class="btn btn-secondary">Suchen!</button>
+            <button type="submit"  class="btn btn-secondary">Suchen!</button>
         </p>
-        <button type="submit" value="Filter" class="btn btn-secondary">Suchen!</button>
+        <button type="submit" name="tablet" value="tablet"  class="btn btn-success">Tablets</button>
+        <button type="submit" name="smartphones" value="smartphones" class="btn btn-success">Smartphones</button>
+        <button type="submit" name="laptop" value="laptop" class="btn btn-success">laptop</button>
+        <button type="submit" name="peripheri" value="peripheri" class="btn btn-success">peripheri</button>
+        <button type="submit" name="microsoft" value="microsoft" class="btn btn-success">microsoft</button>
+        <button type="submit" name="samsung" value="samsung" class="btn btn-success">samsung</button>
+        <button type="submit" name="lenovo" value="lenovo" class="btn btn-success">lenovo</button>
+        <button type="submit" name="dell" value="dell" class="btn btn-success">dell</button>
+        <button type="submit" name="apple" value="apple" class="btn btn-success">apple</button>
 
     </form>
     @foreach (var product in Model)
