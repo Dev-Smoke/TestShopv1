@@ -23,10 +23,11 @@ namespace TestShopv1.Controllers
             _db = myContext;
 
         }
-
-        public IActionResult Index(string? search, string? tablet, string? smartphones,
+        /*        public IActionResult Index(string? search, string? tablet, string? smartphones,
             string? laptop, string? peripheri, string? microsoft, string? samsung,
-            string? apple, string? dell, string? lenovo )
+            string? apple, string? dell, string? lenovo)*/
+        [HttpGet]
+        public IActionResult Index(string? search, int? categoryid)
         {
             var obj = _db.Products.Include(u => u.Category).Include(u => u.Manufacturer).ToList();
             if (!string.IsNullOrEmpty(search))
@@ -34,6 +35,27 @@ namespace TestShopv1.Controllers
                 obj = obj.Where(s => s.Name.ToLowerInvariant().Contains(search.ToLowerInvariant()) ||
                 s.Manufacturer.Name.ToLowerInvariant().Contains(search.ToLowerInvariant()) ||
                 s.Description.ToLowerInvariant().Contains(search.ToLowerInvariant())).ToList();
+            }
+            return View(obj);           
+        }
+        [HttpPost, ActionName("Index")]
+        public IActionResult IndexPost(string? search, int? categoryid, int? manufacturid)
+        {
+            //eINE vIEW ERSTELLN FÜR CATEGORYS UND HERSTELLER; und da kann ich mit der jeweiligen id davon von cat oder manu suchen und bleider in der drinnen
+            var obj = _db.Products.Include(u => u.Category).Include(u => u.Manufacturer).ToList();
+            if (!string.IsNullOrEmpty(search))
+            {
+                obj = obj.Where(s => s.Name.ToLowerInvariant().Contains(search.ToLowerInvariant()) ||
+                s.Manufacturer.Name.ToLowerInvariant().Contains(search.ToLowerInvariant()) ||
+                s.Description.ToLowerInvariant().Contains(search.ToLowerInvariant())).ToList();
+            }
+            if (categoryid != null)
+            {
+                obj = obj.Where(x => x.CategoryId == categoryid).ToList();
+            }
+            if (manufacturid != null)
+            {
+                obj = obj.Where(x => x.ManufacturerId == manufacturid).ToList();
             }
             return View(obj);           
         }

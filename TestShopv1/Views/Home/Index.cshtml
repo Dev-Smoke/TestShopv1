@@ -1,23 +1,27 @@
 ﻿@model IEnumerable<Product>
 
 
-
+@* später mit ENUM ersetzen die die ID zurückgeben *@
+@*<button type="submit" name="tablet" value="tablet"  class="btn btn-success">Tablets</button>
+    <button type="submit" name="smartphones" value="smartphones" class="btn btn-success">Smartphones</button>
+    <button type="submit" name="laptop" value="laptop" class="btn btn-success">laptop</button>
+    <button type="submit" name="peripheri" value="peripheri" class="btn btn-success">peripheri</button>
+    <button type="submit" name="microsoft" value="microsoft" class="btn btn-success">microsoft</button>
+    <button type="submit" name="samsung" value="samsung" class="btn btn-success">samsung</button>
+    <button type="submit" name="lenovo" value="lenovo" class="btn btn-success">lenovo</button>
+    <button type="submit" name="dell" value="dell" class="btn btn-success">dell</button>
+    <button type="submit" name="apple" value="apple" class="btn btn-success">apple</button>*@
 <div class="row pb-3">
-    <form asp-controller="Home" asp-action="Index" method="get">
+    <form asp-controller="Home" asp-action="Index" method="post">
         <p>
             <input type="text" name="search" />
-            <button type="submit"  class="btn btn-secondary">Suchen!</button>
+            <button type="submit" class="btn btn-secondary">Suchen!</button>
         </p>
-        <button type="submit" name="tablet" value="tablet"  class="btn btn-success">Tablets</button>
-        <button type="submit" name="smartphones" value="smartphones" class="btn btn-success">Smartphones</button>
-        <button type="submit" name="laptop" value="laptop" class="btn btn-success">laptop</button>
-        <button type="submit" name="peripheri" value="peripheri" class="btn btn-success">peripheri</button>
-        <button type="submit" name="microsoft" value="microsoft" class="btn btn-success">microsoft</button>
-        <button type="submit" name="samsung" value="samsung" class="btn btn-success">samsung</button>
-        <button type="submit" name="lenovo" value="lenovo" class="btn btn-success">lenovo</button>
-        <button type="submit" name="dell" value="dell" class="btn btn-success">dell</button>
-        <button type="submit" name="apple" value="apple" class="btn btn-success">apple</button>
-
+        @foreach (var item in Model)
+        {
+            <button type="submit" asp-route-categoryid="@item.CategoryId" class="btn btn-success">@item.Category.Name</button>
+            <button type="submit" asp-route-manufacturid="@item.ManufacturerId" class="btn btn-warning">@item.Manufacturer.Name</button>
+        }
     </form>
     @foreach (var product in Model)
     {
