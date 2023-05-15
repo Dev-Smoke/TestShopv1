@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Abp.Web.Mvc.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using TestShopv1.Models;
 
@@ -34,7 +37,7 @@ namespace TestShopv1.Controllers
         }
         [HttpPost, ActionName("Index")]
         public IActionResult IndexPost(string? search, int? categoryid, int? manufacturid)
-         {
+        {
             //eINE vIEW ERSTELLN FÜR CATEGORYS UND HERSTELLER; und da kann ich mit der jeweiligen id davon von cat oder manu suchen und bleider in der drinnen
             var obj = _db.Products.Include(u => u.Category).Include(u => u.Manufacturer).ToList();
             if (!string.IsNullOrEmpty(search))
@@ -74,18 +77,55 @@ namespace TestShopv1.Controllers
 
         public IActionResult Details(int productId)
         {
-            Product product = _db.Products.Include(u => u.Category).Include(u => u.Manufacturer).FirstOrDefault(p => p.Id == productId);
-            return View(product);
+            ShoppingCard cart = new()
+            {
+                Product = _db.Products.Include(u => u.Category).Include(u => u.Manufacturer).FirstOrDefault(p => p.Id == productId),
+                Amount = 1,
+                ProductId = productId
+            };
+            return View(cart);
         }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult Details(ShoppingCard shoppingCard)
+        {
+            var claimsidentity = (ClaimsIdentity)User.Identity;
+            var userId = claimsidentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+             shoppingCard.CustomerId = int.Parse(userId);
+            int userID = int.Parse(userId);
+
+            ShoppingCard? cardFromDb = _db.ShoppingCards.FirstOrDefault( s => s.CustomerId == userID && s.ProductId == shoppingCard.ProductId);
+
+            if (cardFromDb !=  null)
+            {
+                //existiert schon 
+                cardFromDb.Amount += shoppingCard.Amount;
+                _db.ShoppingCards.Update(cardFromDb);
+                _db.SaveChanges();
+            }
+            else
+            {
+                _db.ShoppingCards.Add(shoppingCard);
+                _db.SaveChanges();
+            }
+            TempData["success"] = "Cart updated successfully";
+
+            _db.SaveChanges(); 
+            return RedirectToAction(nameof(Index));
+        }
+
+
+
         public IActionResult Privacy()
         {
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        //public IActionResult Error()
+        //{
+        //    return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        //}
     }
 }

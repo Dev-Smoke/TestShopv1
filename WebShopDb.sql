@@ -51,8 +51,27 @@ CREATE TABLE Product (
 	ManufacturerId int REFERENCES Manufacturer (Id) not null
 );
 
---ALTER TABLE Product 
---ALTER COLUMN [Name] nvarchar(100) 
+
+
+ALTER TABLE Product ADD ProductNummer int;
+
+CREATE TABLE ShoppingCard (
+    Id int primary key not null identity(1,1),
+	ProductNummer int  null,  
+	ProductName nvarChar(50)  null,
+	ProductImage nvarchar(max),
+    UnitPrice money  null,
+	LinePrice money  null,
+	Amount int not null,
+	ProductId int REFERENCES Product (Id) not null,
+	CustomerId int REFERENCES Customer (Id) not null,
+);
+	--CategoryId int REFERENCES Category (Id) not null,
+	--ManufacturerId int REFERENCES Manufacturer (Id) not null
+--drop table ShoppingCard
+ALTER TABLE ShoppingCard DROP COLUMN CategoryId;
+ALTER TABLE ShoppingCard 
+delete Category 
 --drop database TestShopv1
 
 
@@ -62,9 +81,10 @@ CREATE TABLE OrderLine (
 	ProductId int REFERENCES Product (Id) not null,    
     Quantity int not null,
 	TotalPriceBrutto money,
-	TaxRate decimal (5,2)
+	TaxRate decimal (5,2),
+	ShoppingCardId int REFERENCES ShoppingCard (Id) not null
 );
-
+select * from ShoppingCard where CustomerId = 1 and ProductId = 2
 ALTER TABLE OrderLine
 ALTER COLUMN TaxRate NUMERIC(5,2);
 

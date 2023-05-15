@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TestShopv1.Models
 {
-    
+    //[MetadataType(typeof(_Category))]
     public partial class _Category
     {
         [Required(ErrorMessage = "Geben sie einen gültigen Namen ein")]

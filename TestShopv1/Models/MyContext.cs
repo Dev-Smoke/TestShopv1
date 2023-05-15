@@ -53,13 +53,19 @@ namespace TestShopv1.Models
                     .WithMany(p => p.OrderLines)
                     .HasForeignKey(d => d.OrderId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__OrderLine__Order__30F848ED");
+                    .HasConstraintName("FK__OrderLine__Order__7E37BEF6");
 
                 entity.HasOne(d => d.Product)
                     .WithMany(p => p.OrderLines)
                     .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__OrderLine__Produ__31EC6D26");
+                    .HasConstraintName("FK__OrderLine__Produ__7F2BE32F");
+
+                entity.HasOne(d => d.ShoppingCard)
+                    .WithMany(p => p.OrderLines)
+                    .HasForeignKey(d => d.ShoppingCardId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__OrderLine__Shopp__00200768");
             });
 
             modelBuilder.Entity<Product>(entity =>
@@ -79,17 +85,17 @@ namespace TestShopv1.Models
 
             modelBuilder.Entity<ShoppingCard>(entity =>
             {
-                entity.HasOne(d => d.Category)
+                entity.HasOne(d => d.Customer)
                     .WithMany(p => p.ShoppingCards)
-                    .HasForeignKey(d => d.CategoryId)
+                    .HasForeignKey(d => d.CustomerId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__ShoppingC__Categ__6FE99F9F");
+                    .HasConstraintName("FK__ShoppingC__Custo__7A672E12");
 
-                entity.HasOne(d => d.Manufacturer)
+                entity.HasOne(d => d.Product)
                     .WithMany(p => p.ShoppingCards)
-                    .HasForeignKey(d => d.ManufacturerId)
+                    .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__ShoppingC__Manuf__70DDC3D8");
+                    .HasConstraintName("FK__ShoppingC__Produ__797309D9");
             });
 
             OnModelCreatingPartial(modelBuilder);

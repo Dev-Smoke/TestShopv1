@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using TestShopv1.Models;
 using System.Globalization;
 using System.Threading;
+using Microsoft.AspNetCore.Identity;
 
 namespace TestShopv1
 {
@@ -33,6 +34,8 @@ namespace TestShopv1
             services.AddDbContext<MyContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddRazorPages().AddRazorRuntimeCompilation();
+
+            //services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<_MyContext>();
 
             //Für eigene Cookie-Auth
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

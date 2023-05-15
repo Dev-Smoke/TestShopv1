@@ -23,7 +23,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1  d-flex">
+                    <ul class="navbar-nav me-auto">
                         <li class="nav-item">
                             <a class="nav-link active" asp-area="" asp-controller="Category" asp-action="Index">Kategorien</a>
                         </li>
@@ -34,7 +34,7 @@
                             <a class="nav-link active" asp-area="" asp-controller="Product" asp-action="GetAll">Json</a>
                         </li>
                         <!-- #region Account -->
-                        @*<ul class="navbar-nav flex-grow-1  d-flex">
+                        <ul class="navbar-nav flex-grow-1  d-flex">
                             @if (!User.Identity.IsAuthenticated)
                                  {
                                      <li class="nav-item">
@@ -53,8 +53,11 @@
                                          <li class="nav-item">
                                              <a class="nav-link text-danger" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
                                          </li>
+                                         <li class="nav-item">
+                                             <a class="nav-link text-info" asp-area="" asp-controller="Card" asp-action="Index"><i class="bi bi-cart"></i> &nbsp; (0)</a>
+                                         </li>
                                      </ul>
-                                 }*@
+                                 }
 
                         <!-- #endregion -->
                     </ul>

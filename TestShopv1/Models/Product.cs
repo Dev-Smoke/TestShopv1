@@ -8,14 +8,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TestShopv1.Models
 {
-    [MetadataType(typeof(_Product))]
-
     [Table("Product")]
     public partial class Product
     {
         public Product()
         {
             OrderLines = new HashSet<OrderLine>();
+            ShoppingCards = new HashSet<ShoppingCard>();
         }
 
         [Key]
@@ -39,5 +38,7 @@ namespace TestShopv1.Models
         public virtual Manufacturer Manufacturer { get; set; }
         [InverseProperty(nameof(OrderLine.Product))]
         public virtual ICollection<OrderLine> OrderLines { get; set; }
+        [InverseProperty(nameof(ShoppingCard.Product))]
+        public virtual ICollection<ShoppingCard> ShoppingCards { get; set; }
     }
 }

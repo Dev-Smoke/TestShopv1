@@ -18,8 +18,9 @@ namespace TestShopv1.Models
         public int Quantity { get; set; }
         [Column(TypeName = "money")]
         public decimal? TotalPriceBrutto { get; set; }
-        [Column(TypeName = "numeric(5, 2)")]
+        [Column(TypeName = "decimal(5, 2)")]
         public decimal? TaxRate { get; set; }
+        public int ShoppingCardId { get; set; }
 
         [ForeignKey(nameof(OrderId))]
         [InverseProperty("OrderLines")]
@@ -27,5 +28,8 @@ namespace TestShopv1.Models
         [ForeignKey(nameof(ProductId))]
         [InverseProperty("OrderLines")]
         public virtual Product Product { get; set; }
+        [ForeignKey(nameof(ShoppingCardId))]
+        [InverseProperty("OrderLines")]
+        public virtual ShoppingCard ShoppingCard { get; set; }
     }
 }
