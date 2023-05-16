@@ -53,7 +53,7 @@ CREATE TABLE Product (
 
 
 
-ALTER TABLE Product ADD ProductNummer int;
+ALTER TABLE ShoppingCard ADD 	CategoryId int REFERENCES Category (Id)  null;
 
 CREATE TABLE ShoppingCard (
     Id int primary key not null identity(1,1),
@@ -84,7 +84,12 @@ CREATE TABLE OrderLine (
 	TaxRate decimal (5,2),
 	ShoppingCardId int REFERENCES ShoppingCard (Id) not null
 );
-select * from ShoppingCard where CustomerId = 1 and ProductId = 2
+
+ALTER TABLE OrderLine
+ADD CONSTRAINT df_City
+DEFAULT 0.00 FOR TotalPriceBrutto;
+
+select * from OrderLine 
 ALTER TABLE OrderLine
 ALTER COLUMN TaxRate NUMERIC(5,2);
 

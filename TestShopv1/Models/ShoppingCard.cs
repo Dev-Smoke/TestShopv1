@@ -29,7 +29,11 @@ namespace TestShopv1.Models
         public int Amount { get; set; }
         public int ProductId { get; set; }
         public int CustomerId { get; set; }
+        public int? CategoryId { get; set; }
 
+        [ForeignKey(nameof(CategoryId))]
+        [InverseProperty("ShoppingCards")]
+        public virtual Category Category { get; set; }
         [ForeignKey(nameof(CustomerId))]
         [InverseProperty("ShoppingCards")]
         public virtual Customer Customer { get; set; }

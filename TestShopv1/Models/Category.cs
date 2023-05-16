@@ -14,6 +14,7 @@ namespace TestShopv1.Models
         public Category()
         {
             Products = new HashSet<Product>();
+            ShoppingCards = new HashSet<ShoppingCard>();
         }
 
         [Key]
@@ -26,5 +27,7 @@ namespace TestShopv1.Models
 
         [InverseProperty(nameof(Product.Category))]
         public virtual ICollection<Product> Products { get; set; }
+        [InverseProperty(nameof(ShoppingCard.Category))]
+        public virtual ICollection<ShoppingCard> ShoppingCards { get; set; }
     }
 }

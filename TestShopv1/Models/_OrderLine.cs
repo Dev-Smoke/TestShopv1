@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
@@ -9,10 +8,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TestShopv1.Models
 {
-    [MetadataType(typeof(Category))]
-    public partial class Category
-    {   
-        //public decimal TaxRate10 { get; set; }
-        //public decimal TaxRate20 { get; set; }
+    
+    public partial class OrderLine
+    {  
+        //[Column(TypeName = "decimal(5, 2)")]
+        //public decimal? TaxRate { get; set; }
+       
     }
 }

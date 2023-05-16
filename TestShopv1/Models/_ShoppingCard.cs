@@ -12,10 +12,9 @@ namespace TestShopv1.Models
     //[MetadataType(typeof(ShoppingCard))]
     public partial class ShoppingCard
     {
-      
-        //public int CustomerId { get; set; }
-       
-        //[ForeignKey(nameof(CustomerId))]
-        //public Customer Customer { get; set; }
+        //public int CategoryId { get; set; }
+
+        //[ForeignKey(nameof(CategoryId))]
+        //public virtual Category Category { get; set; }
     }
 }

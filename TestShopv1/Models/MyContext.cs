@@ -49,6 +49,8 @@ namespace TestShopv1.Models
 
             modelBuilder.Entity<OrderLine>(entity =>
             {
+                entity.Property(e => e.TotalPriceBrutto).HasDefaultValueSql("((0.00))");
+
                 entity.HasOne(d => d.Order)
                     .WithMany(p => p.OrderLines)
                     .HasForeignKey(d => d.OrderId)
@@ -85,6 +87,11 @@ namespace TestShopv1.Models
 
             modelBuilder.Entity<ShoppingCard>(entity =>
             {
+                entity.HasOne(d => d.Category)
+                    .WithMany(p => p.ShoppingCards)
+                    .HasForeignKey(d => d.CategoryId)
+                    .HasConstraintName("FK__ShoppingC__Categ__02084FDA");
+
                 entity.HasOne(d => d.Customer)
                     .WithMany(p => p.ShoppingCards)
                     .HasForeignKey(d => d.CustomerId)
