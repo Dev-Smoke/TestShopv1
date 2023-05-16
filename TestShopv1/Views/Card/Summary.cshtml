@@ -8,7 +8,7 @@
                 <div class="row px-4">
                     <div class="col-6">
                         <h5 class="pt-2 text-white">
-                            Warenkorb
+                            Bestellzusammenfassung
                         </h5>
                     </div>
                     <div class="col-6 text-end">
@@ -22,75 +22,101 @@
                         <div class="col-12 col-lg-6 pb-4">
                             <div class="row">
                                 <h4 class="d-flex justify-content-between align-items-center mb-3">
-                                    <span class="text-info">Shipping Details:</span>
+                                    <span class="text-info">Bestelldetails:</span>
                                 </h4>
                             </div>
                             <div class="row my-1">
                                 <div class="col-3">
-                                    <label>Name</label>
+                                    <label>Vorname</label>
                                 </div>
                                 <div class="col-9">
-                                    <input class="form-control" />
+                                    <input asp-for="Order.RecipientFirstname" class="form-control" />
+                                    <span asp-validation-for="Order.RecipientFirstname" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="row my-1">
                                 <div class="col-3">
-                                    <label>Phone</label>
+                                    <label>Nachname</label>
                                 </div>
                                 <div class="col-9">
-                                    <input class="form-control" />
+                                    <input asp-for="Order.RecipientLastname" class="form-control" />
+                                    <span asp-validation-for="Order.RecipientLastname" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="row my-1">
                                 <div class="col-3">
-                                    <label>Street Address</label>
+                                    <label>Rechnungsaddresse</label>
                                 </div>
                                 <div class="col-9">
-                                    <input class="form-control" />
+                                    <input asp-for="Order.RecipientStreet" class="form-control" />
+                                    <span asp-validation-for="Order.RecipientStreet" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="row my-1">
                                 <div class="col-3">
-                                    <label>City</label>
+                                    <label>Lieferaddresse</label>
                                 </div>
                                 <div class="col-9">
-                                    <input class="form-control" />
+                                    <input asp-for="Order.AlternativeLieferaddresse" class="form-control" /><span class="text-muted">(Optional)</span>
+                                    <span asp-validation-for="Order.AlternativeLieferaddresse" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="row my-1">
                                 <div class="col-3">
-                                    <label>State</label>
+                                    <label>Stadt</label>
                                 </div>
                                 <div class="col-9">
-                                    <input class="form-control" />
+                                    <input asp-for="Order.RecipientCity" class="form-control" />
+                                    <span asp-validation-for="Order.RecipientCity" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="row my-1">
                                 <div class="col-3">
-                                    <label>Postal Code</label>
+                                    <label>Postleitzahl</label>
                                 </div>
                                 <div class="col-9">
-                                    <input class="form-control" />
+                                    <input asp-for="Order.RecipientZipCode" class="form-control" />
+                                    <span asp-validation-for="Order.RecipientZipCode" class="text-danger"></span>
                                 </div>
                             </div>
+                            @*<div class="row my-1">
+                                    <div class="col-3">
+                                        <label>Postal Code</label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input class="form-control" />
+                                    </div>
+                                </div>*@
                         </div>
                         <div class="col-12 col-lg-5 offset-lg-1">
                             <h4 class="d-flex justify-content-between align-items-center mb-3">
-                                <span class="text-info">Order Summary:</span>
+                                <span class="text-info">Bestellübersicht:</span>
                             </h4>
                             <ul class="list-group mb-3">
-                                <li class="list-group-item d-flex justify-content-between">
-                                    <div>
-                                        <h6 class="my-0">Title</h6>
-                                        <small class="text-muted">Quantity: Count</small>
-                                    </div>
-                                    <span class="text-muted">Price * Count </span>
-                                </li>
+                                @foreach (var item in Model.CardList)
+                                {
+                                    <li class="list-group-item d-flex justify-content-between">
+                                        <div>
+                                            <h6 class="my-0">@item.Product.Name</h6>
+                                            <small class="text-muted">Anzahl: @item.Amount</small>
+                                            <p><small class="text-muted">Produktnummer: @item.Product.ProductNummer</small></p>
+                                        </div>
+                                        <span class="text-muted">@((item.Product.UnitPriceNetto*item.Amount).ToString("C", CultureInfo.CreateSpecificCulture("de-DE")))</span>
+                                    </li>
+                                }
 
 
                                 <li class="list-group-item d-flex justify-content-between bg-light">
-                                    <small class="text-info">Total (USD)</small>
-                                    <strong class="text-info">$$</strong>
+                                    <small class="text-info">Netto</small>
+                                    <strong class="text-info">@TempData["Netto"]€</strong>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between bg-light">
+                                    <small class="text-info">Steuer</small>
+                                    <strong class="text-info">@TempData["Steuer"]€</strong>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between bg-light">
+                                    <small class="text-info">Gesamt</small>
+                                    <strong class="text-info">@Model.Order.BruttoPreis.ToString("C", CultureInfo.CreateSpecificCulture("de-DE"))</strong>
                                 </li>
                             </ul>
                         </div>
@@ -101,12 +127,12 @@
                 <div class="row">
                     <div class="col-12 col-md-8 pt-2">
                         <p style="color:maroon; font-size:14px;">
-                            Estimate Arrival Date:
-
+                            Vorraussichtliches Lieferdatum:
+                            @DateTime.Now.AddDays(7).ToLongDateString() -  @DateTime.Now.AddDays(14).ToLongDateString()
                         </p>
                     </div>
                     <div class="col-12 col-md-4">
-                        <button type="submit" value="Place Order" class="btn btn-primary form-control">Place Order</button>
+                        <button type="submit" value="Place Order" class="btn btn-primary form-control">Kostenpflichtig bestellen</button>
                     </div>
                 </div>
             </div>

@@ -43,6 +43,7 @@ CREATE TABLE Category (
 
 CREATE TABLE Product (
     Id int primary key not null identity(1,1),
+	ProductNummer int  not null identity(10010,1),
 	[Name] nvarChar(50) not null,  
     UnitPriceNetto money not null,
 	ImagePath nvarchar(max),
@@ -89,9 +90,8 @@ ALTER TABLE OrderLine
 ADD CONSTRAINT df_City
 DEFAULT 0.00 FOR TotalPriceBrutto;
 
-select * from OrderLine 
-ALTER TABLE OrderLine
-ALTER COLUMN TaxRate NUMERIC(5,2);
+ALTER TABLE [Order]
+ALTER COLUMN TotalPriceBrutto  
 
 ALTER TABLE Category
 ALTER COLUMN TaxRate NUMERIC(5,2);
@@ -122,6 +122,11 @@ VALUES ( 'Laptops', 0.2),
        ( 'Software', 0.2);
 
 -- Produkte
+
+INSERT INTO Product ( ProductNummer) Values(10010) where Product.Id = 1
+
+
+
 INSERT INTO Product ( Name, UnitPriceNetto, ImagePath, Description, CategoryId, ManufacturerId)
 VALUES ( 'Microsoft Surface Laptop 4', 1199.00, '', 'Leistungsstarker Laptop mit Touchscreen', 1, 1),
        ( 'Apple iPhone 13', 799.00, '', 'Neues iPhone mit 5G-Unterstützung', 2, 2),

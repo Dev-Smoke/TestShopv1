@@ -16,6 +16,11 @@
                 <div class="col-10">
                     <div class=" p-3">
                         <div class="form-floating py-2 col-12">
+                            <input asp-for="Product.ProductNummer" class="form-control border-0 shadow" />
+                            <label asp-for="Product.ProductNummer" class="ms-2"></label>
+                            <span asp-validation-for="Product.ProductNummer" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-2 col-12">
                             <input asp-for="Product.Name" class="form-control border-0 shadow" />
                             <label asp-for="Product.Name" class="ms-2"></label>
                             <span asp-validation-for="Product.Name" class="text-danger"></span>

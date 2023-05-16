@@ -15,6 +15,7 @@ namespace TestShopv1.Controllers
         public IActionResult Index()
         {
             var obj = _db.Categories.ToList();
+         
             return View(obj);
         }
         [HttpGet]

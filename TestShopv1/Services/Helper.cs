@@ -35,6 +35,7 @@ namespace TestShopv1.Services
                 Description = productVM.Product.Description,
                 CategoryId = productVM.Product.CategoryId,
                 ManufacturerId = productVM.Product.ManufacturerId,
+                ProductNummer = productVM.Product.ProductNummer,
                 ImagePath = productVM.Product.ImagePath
             };
             return product;
