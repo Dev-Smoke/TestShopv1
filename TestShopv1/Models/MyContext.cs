@@ -62,12 +62,6 @@ namespace TestShopv1.Models
                     .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__OrderLine__Produ__7F2BE32F");
-
-                entity.HasOne(d => d.ShoppingCard)
-                    .WithMany(p => p.OrderLines)
-                    .HasForeignKey(d => d.ShoppingCardId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__OrderLine__Shopp__00200768");
             });
 
             modelBuilder.Entity<Product>(entity =>

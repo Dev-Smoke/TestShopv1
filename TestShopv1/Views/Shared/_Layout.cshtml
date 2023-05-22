@@ -1,5 +1,6 @@
 ﻿@using TestShopv1.Services
-
+@using Microsoft.AspNetCore.Http
+@using TestShopv1.Models
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,31 +37,33 @@
                         <!-- #region Account -->
                         <ul class="navbar-nav flex-grow-1  d-flex">
                             @if (!User.Identity.IsAuthenticated)
-                                 {
-                                     <li class="nav-item">
-                                         <a class="nav-link text-info" asp-area="" asp-controller="Account" asp-action="Register">Registrieren</a>
-                                     </li>
-                                     <li class="nav-item">
-                                         <a class="nav-link text-info" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
-                                     </li>
-                                 }
-                                 else
-                                 {
-                                     <ul class="navbar-nav flex-grow-1 justify-content-end d-flex">
-                                         <li class="nav-item">
-                                             <a class="nav-link text-danger" asp-area="" asp-controller="Home" asp-action="Index">@User.GetName()</a>
-                                         </li>
-                                         <li class="nav-item">
-                                             <a class="nav-link text-danger" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
-                                         </li>
-                                         <li class="nav-item">
-                                             <a class="nav-link text-info" asp-area="" asp-controller="Card" asp-action="Index"><i class="bi bi-cart"></i> &nbsp; </a>
-                                         </li>
-                                     </ul>
-                                 }
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-info" asp-area="" asp-controller="Account" asp-action="Register">Registrieren</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-info" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <ul class="navbar-nav flex-grow-1 justify-content-end d-flex">
+                                    <li class="nav-item">
+                                        <a class="nav-link text-danger" asp-area="" asp-controller="Home" asp-action="Index">@User.GetName()</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-danger" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
+                                    </li>                        
+                                        <li class="nav-item">
+                                            <a class="nav-link text-info" asp-area="" asp-controller="Card" asp-action="Index">
+                                            @await Component.InvokeAsync("ShoppingCard")  </a>
+                                        </li>
+                                    
+                                </ul>
+                            }
 
-                        <!-- #endregion -->
-                    </ul>
+                            <!-- #endregion -->
+                        </ul>
                 </div>
             </div>
         </nav>

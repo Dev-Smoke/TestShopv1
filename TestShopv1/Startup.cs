@@ -37,6 +37,15 @@ namespace TestShopv1
 
             //services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<_MyContext>();
 
+            //Sessions
+            services.AddDistributedMemoryCache();
+            services.AddSession(options =>
+           {
+               options.IdleTimeout = TimeSpan.FromMinutes(100);
+               options.Cookie.HttpOnly = true;
+               options.Cookie.IsEssential = true;
+           });
+
             //Für eigene Cookie-Auth
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
@@ -73,6 +82,9 @@ namespace TestShopv1
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseSession();
+            
 
             app.UseEndpoints(endpoints =>
             {

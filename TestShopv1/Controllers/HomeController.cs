@@ -1,5 +1,6 @@
 ﻿using Abp.Web.Mvc.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -108,6 +109,9 @@ namespace TestShopv1.Controllers
             {
                 _db.ShoppingCards.Add(shoppingCard);
                 _db.SaveChanges();
+                //Session
+                HttpContext.Session.SetInt32(SD.SessionCart, _db.ShoppingCards.Where(u => u.CustomerId == userID)
+                    .Count());
             }
             TempData["success"] = "Cart updated successfully";
 

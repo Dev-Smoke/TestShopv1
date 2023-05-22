@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,9 @@ namespace TestShopv1.Controllers
 {
     public class AccountController : Controller
     {
- 
+        private readonly ILogger<AccountController> _logger;
+
+
         [HttpGet]
         public IActionResult Register()
         {
@@ -47,12 +50,28 @@ namespace TestShopv1.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Logout()
+        public async Task<IActionResult> Logout(string returnUrl = null)
         {
             await HttpContext.SignOutAsync();
-             return RedirectToAction(nameof(HomeController.Privacy), "Home");
+            //_logger.LogInformation("User logged out.");
+            HttpContext.Session.Clear();
+            if (returnUrl != null)
+            {
+                return LocalRedirect(returnUrl);
+            }
+            else
+            {
+                // This needs to be a redirect so that the browser performs a new
+                // request and the identity for the user gets updated.
+                return RedirectToAction(nameof(HomeController.Privacy), "Home");
+            }
         }
-
+        
+        //public async Task<IActionResult> OnPost(string returnUrl = null)
+        //{
+        //    await HttpContext.SignOutAsync();
+        //    HttpContext.Session.Clear();
+        //}
         private async Task SignInUser(Customer user)
         {
             Customer customerDB = UserService.Get(user);

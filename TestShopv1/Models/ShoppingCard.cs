@@ -11,11 +11,6 @@ namespace TestShopv1.Models
     [Table("ShoppingCard")]
     public partial class ShoppingCard
     {
-        public ShoppingCard()
-        {
-            OrderLines = new HashSet<OrderLine>();
-        }
-
         [Key]
         public int Id { get; set; }
         public int? ProductNummer { get; set; }
@@ -40,7 +35,5 @@ namespace TestShopv1.Models
         [ForeignKey(nameof(ProductId))]
         [InverseProperty("ShoppingCards")]
         public virtual Product Product { get; set; }
-        [InverseProperty(nameof(OrderLine.ShoppingCard))]
-        public virtual ICollection<OrderLine> OrderLines { get; set; }
     }
 }

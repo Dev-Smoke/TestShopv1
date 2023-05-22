@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -54,6 +56,8 @@ namespace TestShopv1.Controllers
             var cartfromDb = _db.ShoppingCards.FirstOrDefault(q => q.Id == cartId);
             if (cartfromDb.Amount <= 1)
             {
+                HttpContext.Session.SetInt32(SD.SessionCart, _db.ShoppingCards.Where(u => u.CustomerId == cartfromDb.CustomerId)
+                    .Count() -1);
                 _db.ShoppingCards.Remove(cartfromDb);
             }
             else
@@ -67,11 +71,14 @@ namespace TestShopv1.Controllers
         public IActionResult Remove(int cartId)
         {
             var cartfromDb = _db.ShoppingCards.FirstOrDefault(q => q.Id == cartId);
+            HttpContext.Session.SetInt32(SD.SessionCart, _db.ShoppingCards.Where(u => u.CustomerId == cartfromDb.CustomerId)
+                    .Count() - 1);
             _db.ShoppingCards.Remove(cartfromDb);
             _db.SaveChanges();
 
             return RedirectToAction(nameof(Index));
         }
+        
         public decimal? NettoBruttoTotal_Rechner(List<ShoppingCard> cards)
         {
 
@@ -171,7 +178,7 @@ namespace TestShopv1.Controllers
                 _db.OrderLines.Add(orderLine);
                 _db.SaveChanges();
             }
-            
+            HttpContext.Session.Clear();
             return RedirectToAction(nameof(OrderConfirmation));
         }
 
@@ -181,6 +188,10 @@ namespace TestShopv1.Controllers
 
             OrderLine orderLine = OrderLineTemp;
             orderLine.TotalPriceBrutto = TotalPrice;
+            HttpContext.Session.Clear();
+            var toDelete = _db.ShoppingCards.ToList(); //,it user Id wäre es abgesichert
+            _db.ShoppingCards.RemoveRange(toDelete);
+            _db.SaveChanges();
 
             return View(orderLine);
         }
