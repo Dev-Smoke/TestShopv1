@@ -14,6 +14,7 @@ using TestShopv1.Models;
 
 namespace TestShopv1.Controllers
 {
+    
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

@@ -1,7 +1,7 @@
---create database TestShopv1
+create database TestShopv1
 
---use TestShopv1
---go  
+use TestShopv1
+go  
 
 CREATE TABLE Customer (
     Id int primary key not null identity(1,1),
@@ -53,9 +53,6 @@ CREATE TABLE Product (
 );
 
 
-
-ALTER TABLE ShoppingCard ADD 	CategoryId int REFERENCES Category (Id)  null;
-
 CREATE TABLE ShoppingCard (
     Id int primary key not null identity(1,1),
 	ProductNummer int  null,  
@@ -67,13 +64,6 @@ CREATE TABLE ShoppingCard (
 	ProductId int REFERENCES Product (Id) not null,
 	CustomerId int REFERENCES Customer (Id) not null,
 );
-	--CategoryId int REFERENCES Category (Id) not null,
-	--ManufacturerId int REFERENCES Manufacturer (Id) not null
---drop table ShoppingCard
-ALTER TABLE ShoppingCard DROP COLUMN CategoryId;
-ALTER TABLE ShoppingCard 
-delete Category 
---drop database TestShopv1
 
 
 CREATE TABLE OrderLine (
@@ -85,17 +75,6 @@ CREATE TABLE OrderLine (
 	TaxRate decimal (5,2),
 	ShoppingCardId int REFERENCES ShoppingCard (Id) not null
 );
-
-ALTER TABLE OrderLine
-ADD CONSTRAINT df_City
-DEFAULT 0.00 FOR TotalPriceBrutto;
-
-ALTER TABLE [Order]
-ALTER COLUMN TotalPriceBrutto  
-
-ALTER TABLE Category
-ALTER COLUMN TaxRate NUMERIC(5,2);
-
 
 
 -- Kunden

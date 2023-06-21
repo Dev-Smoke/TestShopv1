@@ -29,7 +29,7 @@ namespace TestShopv1.ViewComponents
 
                 if (HttpContext.Session.GetInt32(SD.SessionCart) == null)
                 {
-                    HttpContext.Session.SetInt32(SD.SessionCart,
+                   HttpContext.Session.SetInt32(SD.SessionCart,
                     _db.ShoppingCards.Where(u => u.CustomerId == userID).Count());
                 }
 

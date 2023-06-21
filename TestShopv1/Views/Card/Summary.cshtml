@@ -99,7 +99,6 @@
                                         <div>
                                             <h6 class="my-0">@item.Product.Name</h6>
                                             <small class="text-muted">Anzahl: @item.Amount</small>
-                                            <p><small class="text-muted">Produktnummer: @item.Product.ProductNummer</small></p>
                                         </div>
                                         <span class="text-muted">@((item.Product.UnitPriceNetto*item.Amount).ToString("C", CultureInfo.CreateSpecificCulture("de-DE")))</span>
                                     </li>

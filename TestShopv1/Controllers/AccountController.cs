@@ -44,12 +44,12 @@ namespace TestShopv1.Controllers
             {
                 await SignInUser(user);
 
-                return RedirectToAction(nameof(HomeController.Index), HomeController.Name);
+                //return RedirectToAction(nameof(HomeController.Index), HomeController.Name);
             }
             return View("Error");
         }
 
-        [HttpGet]
+       [HttpGet]
         public async Task<IActionResult> Logout(string returnUrl = null)
         {
             await HttpContext.SignOutAsync();
@@ -63,7 +63,7 @@ namespace TestShopv1.Controllers
             {
                 // This needs to be a redirect so that the browser performs a new
                 // request and the identity for the user gets updated.
-                return RedirectToAction(nameof(HomeController.Privacy), "Home");
+              return RedirectToAction(nameof(HomeController.Privacy), "Home");
             }
         }
         
